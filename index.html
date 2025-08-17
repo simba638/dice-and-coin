@@ -17,18 +17,22 @@
       padding: 20px;
     }
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
     }
     .card {
       background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
       padding: 25px;
       margin: 15px;
-      box-shadow: 0px 6px 15px rgba(0,0,0,0.25);
+      box-shadow: 0px 6px 14px rgba(0,0,0,0.25);
       width: 320px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
     }
     button {
       padding: 12px 28px;
@@ -36,7 +40,7 @@
       font-size: 18px;
       font-weight: bold;
       border: none;
-      border-radius: 14px;
+      border-radius: 12px;
       background: #fff;
       color: #333;
       cursor: pointer;
@@ -53,8 +57,12 @@
       margin-top: 15px;
       animation: fadeIn 0.5s ease-in-out;
     }
+    .result p {
+      font-size: 1.2rem;
+      margin-top: 8px;
+    }
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
+      from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
     }
     .shake {
@@ -62,9 +70,9 @@
     }
     @keyframes shake {
       0% { transform: rotate(0deg); }
-      25% { transform: rotate(15deg); }
-      50% { transform: rotate(-15deg); }
-      75% { transform: rotate(10deg); }
+      25% { transform: rotate(10deg); }
+      50% { transform: rotate(-10deg); }
+      75% { transform: rotate(8deg); }
       100% { transform: rotate(0deg); }
     }
     .flip {
@@ -75,13 +83,14 @@
       to { transform: rotateY(360deg); }
     }
     .history {
-      margin-top: 20px;
+      margin-top: 15px;
       background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 14px;
-      box-shadow: inset 0px 2px 8px rgba(0,0,0,0.2);
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: inset 0px 2px 6px rgba(0,0,0,0.2);
     }
     .history h2 {
+      font-size: 1.1rem;
       margin-bottom: 8px;
     }
     .history ul {
@@ -89,11 +98,11 @@
       padding: 0;
       margin: 0;
       text-align: left;
-      font-size: 16px;
+      font-size: 1rem;
     }
     .history li {
-      padding: 4px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
     }
     footer {
       margin-top: auto;
@@ -135,7 +144,7 @@
   </footer>
 
   <script>
-    // Dice faces (still online images)
+    // Dice faces (online images)
     const diceFaces = [
       "https://upload.wikimedia.org/wikipedia/commons/1/1b/Dice-1-b.svg",
       "https://upload.wikimedia.org/wikipedia/commons/5/5f/Dice-2-b.svg",
@@ -145,13 +154,13 @@
       "https://upload.wikimedia.org/wikipedia/commons/2/26/Dice-6-b.svg"
     ];
 
-    // Local coin images (same folder as index.html)
+    // Local coin images
     const coinFaces = {
       Heads: "imageheads.png",
       Tails: "imagetails.png"
     };
 
-    // Local sounds (same folder as index.html)
+    // Local sounds
     const diceSound = new Audio("sounddice.mp3");
     const coinSound = new Audio("coinflip.mp3");
 
