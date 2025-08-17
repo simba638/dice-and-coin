@@ -135,7 +135,7 @@
   </footer>
 
   <script>
-    // Dice faces from Wikimedia
+    // Dice faces (still online images)
     const diceFaces = [
       "https://upload.wikimedia.org/wikipedia/commons/1/1b/Dice-1-b.svg",
       "https://upload.wikimedia.org/wikipedia/commons/5/5f/Dice-2-b.svg",
@@ -145,15 +145,15 @@
       "https://upload.wikimedia.org/wikipedia/commons/2/26/Dice-6-b.svg"
     ];
 
-    // Local coin images
+    // Local coin images (same folder as index.html)
     const coinFaces = {
-      Heads: "images/imageheads.png",
-      Tails: "images/imagetails.png"
+      Heads: "imageheads.png",
+      Tails: "imagetails.png"
     };
 
-    // Local sounds
-    const diceSound = new Audio("sounds/sounddice.mp3");
-    const coinSound = new Audio("sounds/coinflip.mp3");
+    // Local sounds (same folder as index.html)
+    const diceSound = new Audio("sounddice.mp3");
+    const coinSound = new Audio("coinflip.mp3");
 
     function rollDice() {
       diceSound.play();
