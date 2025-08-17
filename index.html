@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎲 Dice Roller & 🪙 Coin Toss</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 18px;
+      padding: 25px;
+      margin: 15px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.25);
+      width: 320px;
+    }
+    button {
+      padding: 12px 28px;
+      margin: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 14px;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background: #f1c40f;
+      transform: scale(1.05);
+    }
+    .result img {
+      width: 120px;
+      height: 120px;
+      margin-top: 15px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .shake {
+      animation: shake 0.6s;
+    }
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(15deg); }
+      50% { transform: rotate(-15deg); }
+      75% { transform: rotate(10deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .flip {
+      animation: flip 0.6s;
+    }
+    @keyframes flip {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+    .history {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 14px;
+      box-shadow: inset 0px 2px 8px rgba(0,0,0,0.2);
+    }
+    .history h2 {
+      margin-bottom: 8px;
+    }
+    .history ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      font-size: 16px;
+    }
+    .history li {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    footer {
+      margin-top: auto;
+      padding: 15px;
+      font-size: 14px;
+      color: #eee;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 Virtual Dice & 🪙 Coin Toss</h1>
+
+  <!-- Dice Roller Section -->
+  <div class="card">
+    <h2>🎲 Dice Roller</h2>
+    <button onclick="rollDice()">Roll Dice</button>
+    <div id="diceOutput" class="result"><p>Click to roll the dice!</p></div>
+    <div class="history">
+      <h2>Dice History</h2>
+      <ul id="diceHistory"></ul>
+    </div>
+  </div>
+
+  <!-- Coin Toss Section -->
+  <div class="card">
+    <h2>🪙 Coin Toss</h2>
+    <button onclick="tossCoin()">Toss Coin</button>
+    <div id="coinOutput" class="result"><p>Click to toss the coin!</p></div>
+    <div class="history">
+      <h2>Coin History</h2>
+      <ul id="coinHistory"></ul>
+    </div>
+  </div>
+
+  <!-- Branding -->
+  <footer>
+    Created by <b>Faiz</b> – All Rights Reserved ©
+  </footer>
+
+  <script>
+    const diceFaces = [
+      "https://upload.wikimedia.org/wikipedia/commons/1/1b/Dice-1-b.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/5/5f/Dice-2-b.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/b/b1/Dice-3-b.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/f/fd/Dice-4-b.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/0/08/Dice-5-b.svg",
+      "https://upload.wikimedia.org/wikipedia/commons/2/26/Dice-6-b.svg"
+    ];
+    const coinFaces = {
+      Heads: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Indian_Head_1_rupee_coin_2005.png",
+      Tails: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Indian_1_Rupee_2005_Reverse.jpg"
+    };
+
+    // Sounds
+    const diceSound = new Audio("https://www.myinstants.com/media/sounds/dice-roll.mp3");
+    const coinSound = new Audio("https://www.myinstants.com/media/sounds/coin-flip.mp3");
+
+    function rollDice() {
+      diceSound.play();
+      let dice = Math.floor(Math.random() * 6);
+      let diceOutput = document.getElementById("diceOutput");
+      diceOutput.innerHTML = `<p>🎲 Dice Rolled: ${dice + 1}</p>
+                              <img id="diceImg" src="${diceFaces[dice]}" alt="Dice ${dice+1}">`;
+      document.getElementById("diceImg").classList.add("shake");
+      setTimeout(()=>document.getElementById("diceImg").classList.remove("shake"),600);
+      addHistory("diceHistory", `Dice → ${dice+1}`);
+    }
+
+    function tossCoin() {
+      coinSound.play();
+      let result = Math.random() < 0.5 ? "Heads" : "Tails";
+      let coinOutput = document.getElementById("coinOutput");
+      coinOutput.innerHTML = `<p>🪙 Coin Toss: ${result}</p>
+                              <img id="coinImg" src="${coinFaces[result]}" alt="${result}">`;
+      document.getElementById("coinImg").classList.add("flip");
+      setTimeout(()=>document.getElementById("coinImg").classList.remove("flip"),600);
+      addHistory("coinHistory", `Coin → ${result}`);
+    }
+
+    function addHistory(id, text) {
+      let list = document.getElementById(id);
+      let li = document.createElement("li");
+      li.textContent = text;
+      list.insertBefore(li, list.firstChild);
+      if (list.children.length > 5) list.removeChild(list.lastChild);
+    }
+  </script>
+</body>
+</html>
